@@ -25,6 +25,7 @@ public class GraphvizEngine {
 	private Map<String,OutputType> type;
 	private Graph graph;
 	private String layoutManager;
+	private String options;
 	
 	/**
 	 * directory path where the dot command will be executed.
@@ -39,6 +40,7 @@ public class GraphvizEngine {
 		this.type = new HashMap<String,OutputType>();
 		this.type.put("png",new OutputType("png"));
 		this.layoutManager = "dot";
+		this.options = "";
 	}
 
 	/**
@@ -62,7 +64,7 @@ public class GraphvizEngine {
 						   .append(type.filePath());
 			}
 			
-			String dotCommand = prog + outputTypes + " " + tmpDot.getPath();
+			String dotCommand = prog + " " + this.options + outputTypes + " " + tmpDot.getPath();
 			Process process = Runtime.getRuntime().exec(dotCommand,null,new File(directoryPathExecute));
 			
 			@SuppressWarnings("unused")
@@ -169,6 +171,11 @@ public class GraphvizEngine {
 	 */
 	public GraphvizEngine layout(String layoutManager) {
 		this.layoutManager = layoutManager;
+		return this;
+	}
+	
+	public GraphvizEngine options(String options) {
+		this.options = options;
 		return this;
 	}
 
