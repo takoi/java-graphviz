@@ -174,6 +174,9 @@ public class GraphvizEngine {
 		return this;
 	}
 	
+	/**
+	 * Set other command line options. String is passed directly to the layout manager.
+	 */
 	public GraphvizEngine options(String options) {
 		this.options = options;
 		return this;
