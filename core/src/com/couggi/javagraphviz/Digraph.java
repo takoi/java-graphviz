@@ -114,7 +114,28 @@ public class Digraph implements Graph {
 		return edge;
 	}
 
+	@Override
+	public boolean containsEdge(Node nodeFrom, Node nodeTo) {
+		if (containsEdge(this, nodeFrom, nodeTo)) {
+			return true;
+		}
+		for (Graph graph : subGraphs) {
+			if (containsEdge(graph, nodeFrom, nodeTo)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
+	private boolean containsEdge(Graph graph, Node nodeFrom, Node nodeTo) {
+		for (Edge edge : graph.edges()) {
+			if (edge.from() == nodeFrom && edge.to() == nodeTo) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public boolean containsNode(Node node) {
 		boolean contains = this.nodes().contains(node);
 		if (!contains)
